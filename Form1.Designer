@@ -1,0 +1,54 @@
+namespace form;
+
+partial class Form1
+{
+    private System.ComponentModel.IContainer components = null;
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing && (components != null))
+        {
+            components.Dispose();
+        }
+        base.Dispose(disposing);
+    }
+
+    #region Windows Form Designer generated code
+
+    /// <summary>
+    ///  Required method for Designer support - do not modify
+    ///  the contents of this method with the code editor.
+    /// </summary>
+    private void InitializeComponent()
+    {
+        this.components = new System.ComponentModel.Container();
+        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+        this.ClientSize = new System.Drawing.Size(800, 700);
+        this.Text = "Fractal Signature";
+
+        this.label1 = new System.Windows.Forms.Label();
+                // Creating and setting the label 
+        label1.Text = "Введите число от 0 до 10 (общее С)"; 
+        label1.Location = new Point(20, 20); 
+        label1.AutoSize = true; 
+        label1.Font = new Font("Calibri", 12); 
+        label1.ForeColor = Color.Black; 
+        pictureBox1 = new System.Windows.Forms.PictureBox();
+        //label1.Padding = new Padding(6); 
+        pictureBox1.Location = new Point(0, 50);
+        pictureBox1.Size = new Size(700, 700);
+        Bitmap img = MandelbrotSet(pictureBox1, 0.5, -1.5, 1, -1, 500);
+        pictureBox1.Image = img;
+        // Adding this control to the form 
+        this.Controls.Add(label1); 
+        this.Controls.Add(pictureBox1); 
+    }
+
+    #endregion
+    private System.Windows.Forms.Label label1;
+    private static double currentmaxr;
+    private static double currentmaxi;
+    private static double currentminr;
+    private static double currentmini;
+    private static PictureBox pictureBox1;
+}
