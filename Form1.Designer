@@ -145,7 +145,7 @@ partial class Form1
 
         label15 = new System.Windows.Forms.Label();
         //label15.Text = "Подпись"; 
-        label15.Location = new Point(590, 410); 
+        label15.Location = new Point(620, 410); 
         label15.AutoSize = true; 
         label15.Font = new Font("Calibri", 12);        
 
