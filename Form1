@@ -89,6 +89,7 @@ public partial class Form1 : Form
     }        
     private void Control1_MouseClick(Object sender, MouseEventArgs ev) 
     {
+        
         System.Text.StringBuilder messageBoxCS = new System.Text.StringBuilder();
         messageBoxCS.AppendFormat("{0} = {1}", "Button", ev.Button );
         messageBoxCS.AppendLine();
@@ -104,26 +105,58 @@ public partial class Form1 : Form
         messageBoxCS.AppendLine();
         //MessageBox.Show(messageBoxCS.ToString(), "MouseClick Event" );
         System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+        Bitmap img = new Bitmap(500, 500);
+
         if (label7.Text == "")
         {
             double text = (double)(ev.X-375)/(double)250;
             double text2 = -((double)(ev.Y-250)/(double)250);
-            label7.Text = text + " + " + text2 + "i";
+            if (text2 >= 0)
+                label7.Text = text + " + " + text2 + "i";
+            else
+                label7.Text = text + " " + text2 + "i";
             C = new Complex(text, text2);
+
+            var pic = (PictureBox)sender;
+            var g = pic.CreateGraphics();
+            Pen pengraph = new Pen(Color.Red, 0.75F);
+            g.DrawRectangle(pengraph, ev.X, ev.Y, 2, 2);
+            array2[0,0] = ev.X;
+            array2[0,1] = ev.Y;
+            
         }
         else if (label8.Text == "")
         {
             double text = (double)(ev.X-375)/(double)250;
             double text2 = -((double)(ev.Y-250)/(double)250);
-            label8.Text = text + " + " + text2 + "i";
+            if (text2 >= 0)
+                label8.Text = text + " + " + text2 + "i";
+            else
+                label8.Text = text + " " + text2 + "i";
             e = new Complex(text, text2);
+            var pic = (PictureBox)sender;
+            var g = pic.CreateGraphics();
+            Pen pengraph = new Pen(Color.Red, 0.75F);
+            g.DrawRectangle(pengraph, ev.X, ev.Y, 2, 2);
+            array2[1,0] = ev.X;
+            array2[1,1] = ev.Y;
         }
         else if (label9.Text == "")
         {
             double text = (double)(ev.X-375)/(double)250;
             double text2 = -((double)(ev.Y-250)/(double)250);
             label9.Text = text + " + " + text2 + "i";
+            if (text2 >= 0)
+                label9.Text = text + " + " + text2 + "i";
+            else
+                label9.Text = text + " " + text2 + "i";        
             d = new Complex(text, text2);
+            var pic = (PictureBox)sender;
+            var g = pic.CreateGraphics();
+            Pen pengraph = new Pen(Color.Red, 0.75F);
+            g.DrawRectangle(pengraph, ev.X, ev.Y, 2, 2);
+            array2[2,0] = ev.X;
+            array2[2,1] = ev.Y;
         }
     }
     private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
@@ -173,21 +206,21 @@ public partial class Form1 : Form
                 q_n = q_n * C * e;
             }
             Complex K_a = Complex.Pow(C, n-x) * q_n * e;
-            K_a = new Complex(Math.Round(K_a.Real, 15), Math.Round(K_a.Imaginary, 15));
+            K_a = new Complex(Math.Round(K_a.Real, 10), Math.Round(K_a.Imaginary, 10));
 
             Complex q_k = P_a;
             for (int i = 0; i < k; i++) {
                 q_k = q_k * C * d;
             }
             Complex K_b = Complex.Pow(C, k-x) * q_k * d;
-            K_b = new Complex(Math.Round(K_b.Real, 15), Math.Round(K_b.Imaginary, 15));
+            K_b = new Complex(Math.Round(K_b.Real, 10), Math.Round(K_b.Imaginary, 10));
 
             Complex sign = K_a * m;
             Complex test = K_b * m;
             if (sign.Imaginary >= 0)
                 label15.Text = sign.Real + " +" + sign.Imaginary + "i";
             if (sign.Imaginary < 0)
-                label15.Text = sign.Real + " - " + sign.Imaginary + "i";
+                label15.Text = sign.Real + " " + sign.Imaginary + "i";
             if (sign == K_b * m)
                 label16.Text = "Подпись верна";
             else
@@ -205,5 +238,11 @@ public partial class Form1 : Form
         label9.Text = "";
         label15.Text = "";
         label16.Text = "";
+        var g = pictureBox1.CreateGraphics();
+        Pen pengraph = new Pen(Color.Black, 0.75F);
+        g.DrawRectangle(pengraph, array2[0,0], array2[0,1], 2, 2);
+        g.DrawRectangle(pengraph, array2[1,0], array2[1,1], 2, 2);
+        g.DrawRectangle(pengraph, array2[2,0], array2[2,1], 2, 2);
     }  
+
 }
