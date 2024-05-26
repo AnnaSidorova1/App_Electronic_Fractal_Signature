@@ -25,7 +25,7 @@ partial class Form1
     {
         this.components = new System.ComponentModel.Container();
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        this.ClientSize = new System.Drawing.Size(1050, 650);
+        this.ClientSize = new System.Drawing.Size(1100, 650);
         this.Text = "Fractal Signature";
 
         pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -152,6 +152,7 @@ partial class Form1
         label16 = new System.Windows.Forms.Label();
         label16.Location = new Point(530, 440); 
         label16.AutoSize = true; 
+
         label16.Font = new Font("Calibri", 12);       
 
         Button2 = new Button();
@@ -161,6 +162,7 @@ partial class Form1
         Button2.BackColor = Color.LightBlue;
         Button2.Padding = new Padding(6);
         Button2.Click += button2_Click;
+        //array2 = new int[3,2];
         
         Graphics g = Graphics.FromImage(pictureBox1.Image);
         // Adding this control to the form 
@@ -223,5 +225,6 @@ partial class Form1
     private int x;
     private int n;
     private int k;
+    private int[,] array2 = new int[3, 2];
     //private static Graphics g;
 }
