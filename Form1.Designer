@@ -23,32 +23,98 @@ partial class Form1
     {
         this.components = new System.ComponentModel.Container();
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        this.ClientSize = new System.Drawing.Size(800, 700);
+        this.ClientSize = new System.Drawing.Size(1200, 700);
         this.Text = "Fractal Signature";
 
-        this.label1 = new System.Windows.Forms.Label();
-                // Creating and setting the label 
-        label1.Text = "Введите число от 0 до 10 (общее С)"; 
-        label1.Location = new Point(20, 20); 
-        label1.AutoSize = true; 
-        label1.Font = new Font("Calibri", 12); 
-        label1.ForeColor = Color.Black; 
         pictureBox1 = new System.Windows.Forms.PictureBox();
         //label1.Padding = new Padding(6); 
-        pictureBox1.Location = new Point(0, 50);
-        pictureBox1.Size = new Size(700, 700);
+        pictureBox1.Location = new Point(0, 0);
+        pictureBox1.Size = new Size(500, 500);
         Bitmap img = MandelbrotSet(pictureBox1, 0.5, -1.5, 1, -1, 500);
         pictureBox1.Image = img;
+
+        label1 = new System.Windows.Forms.Label();
+        label1.Text = "Выберите 3 комплексных числа: (общее С),"; 
+        label1.Location = new Point(10, 510); 
+        label1.AutoSize = true; 
+        label1.Font = new Font("Calibri", 12); 
+        //label1.ForeColor = Color.Black; 
+
+        label2 = new System.Windows.Forms.Label();
+        label2.Text = "один из параметров секретного ключа отправителя (e),"; 
+        label2.Location = new Point(10, 530); 
+        label2.AutoSize = true; 
+        label2.Font = new Font("Calibri", 12); 
+
+        label3 = new System.Windows.Forms.Label();
+        label3.Text = "один из параметров секретного ключа получателя (d)"; 
+        label3.Location = new Point(10, 550); 
+        label3.AutoSize = true; 
+        label3.Font = new Font("Calibri", 12); 
+
+        label4 = new System.Windows.Forms.Label();
+        label4.Text = "Общее С:"; 
+        label4.Location = new Point(510, 20); 
+        label4.AutoSize = true; 
+        label4.Font = new Font("Calibri", 12); 
+
+        label5 = new System.Windows.Forms.Label();
+        label5.Text = "Секретный для А (e):"; 
+        label5.Location = new Point(510, 50); 
+        label5.AutoSize = true; 
+        label5.Font = new Font("Calibri", 12); 
+
+        label6 = new System.Windows.Forms.Label();
+        label6.Text = "Секретный для В (d):"; 
+        label6.Location = new Point(510, 80); 
+        label6.AutoSize = true; 
+        label6.Font = new Font("Calibri", 12); 
+
+        label7 = new System.Windows.Forms.Label();
+        label7.Location = new Point(600, 20); 
+        label7.AutoSize = true; 
+        label7.Font = new Font("Calibri", 12); 
+        label7.ForeColor = Color.DarkCyan;
+
+        label8 = new System.Windows.Forms.Label();
+        label8.Location = new Point(700, 50); 
+        label8.AutoSize = true; 
+        label8.Font = new Font("Calibri", 12); 
+        label8.ForeColor = Color.DarkCyan;
+
+        label9 = new System.Windows.Forms.Label();
+        label9.Location = new Point(700, 80); 
+        label9.AutoSize = true; 
+        label9.Font = new Font("Calibri", 12); 
+        label9.ForeColor = Color.DarkCyan;
+        
+        Graphics g = Graphics.FromImage(pictureBox1.Image);
         // Adding this control to the form 
         this.Controls.Add(label1); 
+        this.Controls.Add(label2); 
+        this.Controls.Add(label3); 
+        this.Controls.Add(label4); 
+        this.Controls.Add(label5); 
+        this.Controls.Add(label6); 
+        this.Controls.Add(label7); 
+        this.Controls.Add(label8); 
+        this.Controls.Add(label9); 
         this.Controls.Add(pictureBox1); 
+        //this.MouseClick += Control1_MouseClick;
+        pictureBox1.MouseClick += Control1_MouseClick;
+        
     }
 
     #endregion
     private System.Windows.Forms.Label label1;
-    private static double currentmaxr;
-    private static double currentmaxi;
-    private static double currentminr;
-    private static double currentmini;
+    private System.Windows.Forms.Label label2;
+    private System.Windows.Forms.Label label3;
+    private System.Windows.Forms.Label label4;
+    private System.Windows.Forms.Label label5;
+    private System.Windows.Forms.Label label6;
+    private System.Windows.Forms.Label label7;
+    private System.Windows.Forms.Label label8;
+    private System.Windows.Forms.Label label9;
     private static PictureBox pictureBox1;
+    //private static Graphics g;
 }
