@@ -1,3 +1,5 @@
+using System.Numerics;
+
 namespace form;
 
 partial class Form1
@@ -23,11 +25,10 @@ partial class Form1
     {
         this.components = new System.ComponentModel.Container();
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        this.ClientSize = new System.Drawing.Size(1200, 700);
+        this.ClientSize = new System.Drawing.Size(1050, 650);
         this.Text = "Fractal Signature";
 
         pictureBox1 = new System.Windows.Forms.PictureBox();
-        //label1.Padding = new Padding(6); 
         pictureBox1.Location = new Point(0, 0);
         pictureBox1.Size = new Size(500, 500);
         Bitmap img = MandelbrotSet(pictureBox1, 0.5, -1.5, 1, -1, 500);
@@ -35,58 +36,131 @@ partial class Form1
 
         label1 = new System.Windows.Forms.Label();
         label1.Text = "Выберите 3 комплексных числа: (общее С),"; 
-        label1.Location = new Point(10, 510); 
+        label1.Location = new Point(10, 530); 
         label1.AutoSize = true; 
         label1.Font = new Font("Calibri", 12); 
-        //label1.ForeColor = Color.Black; 
 
         label2 = new System.Windows.Forms.Label();
         label2.Text = "один из параметров секретного ключа отправителя (e),"; 
-        label2.Location = new Point(10, 530); 
+        label2.Location = new Point(10, 550); 
         label2.AutoSize = true; 
         label2.Font = new Font("Calibri", 12); 
 
         label3 = new System.Windows.Forms.Label();
         label3.Text = "один из параметров секретного ключа получателя (d)"; 
-        label3.Location = new Point(10, 550); 
+        label3.Location = new Point(10, 570); 
         label3.AutoSize = true; 
         label3.Font = new Font("Calibri", 12); 
 
         label4 = new System.Windows.Forms.Label();
         label4.Text = "Общее С:"; 
-        label4.Location = new Point(510, 20); 
+        label4.Location = new Point(530, 20); 
         label4.AutoSize = true; 
         label4.Font = new Font("Calibri", 12); 
 
+        label7 = new System.Windows.Forms.Label();
+        label7.Location = new Point(620, 20); 
+        label7.AutoSize = true; 
+        label7.Font = new Font("Calibri", 12); 
+        label7.ForeColor = Color.DarkCyan;        
+
+        label11 = new System.Windows.Forms.Label();
+        label11.Text = "Общее x (целое):"; 
+        label11.Location = new Point(530, 50); 
+        label11.AutoSize = true; 
+        label11.Font = new Font("Calibri", 12);       
+
+        textBox3 = new TextBox();
+        textBox3.Location = new Point(690, 50);
+        textBox3.KeyPress += textBox1_KeyPress;  
+
         label5 = new System.Windows.Forms.Label();
-        label5.Text = "Секретный для А (e):"; 
-        label5.Location = new Point(510, 50); 
+        label5.Text = "Секретный ключ для А (e):"; 
+        label5.Location = new Point(530, 110); 
         label5.AutoSize = true; 
         label5.Font = new Font("Calibri", 12); 
 
+        label8 = new System.Windows.Forms.Label();
+        label8.Location = new Point(770, 110); 
+        label8.AutoSize = true; 
+        label8.Font = new Font("Calibri", 12); 
+        label8.ForeColor = Color.DarkCyan;  
+
+        label12 = new System.Windows.Forms.Label();
+        label12.Text = "Секретное число итераций для А (n):"; 
+        label12.Location = new Point(530, 140); 
+        label12.AutoSize = true; 
+        label12.Font = new Font("Calibri", 12);        
+
+        textBox4 = new TextBox();
+        textBox4.Location = new Point(870, 140);
+        textBox4.KeyPress += textBox1_KeyPress;
+
         label6 = new System.Windows.Forms.Label();
-        label6.Text = "Секретный для В (d):"; 
-        label6.Location = new Point(510, 80); 
+        label6.Text = "Секретный ключ для В (d):"; 
+        label6.Location = new Point(530, 200); 
         label6.AutoSize = true; 
         label6.Font = new Font("Calibri", 12); 
 
-        label7 = new System.Windows.Forms.Label();
-        label7.Location = new Point(600, 20); 
-        label7.AutoSize = true; 
-        label7.Font = new Font("Calibri", 12); 
-        label7.ForeColor = Color.DarkCyan;
-
-        label8 = new System.Windows.Forms.Label();
-        label8.Location = new Point(700, 50); 
-        label8.AutoSize = true; 
-        label8.Font = new Font("Calibri", 12); 
-        label8.ForeColor = Color.DarkCyan;
-
         label9 = new System.Windows.Forms.Label();
-        label9.Location = new Point(700, 80); 
+        label9.Location = new Point(770, 200); 
         label9.AutoSize = true; 
         label9.Font = new Font("Calibri", 12); 
         label9.ForeColor = Color.DarkCyan;
+
+        label13 = new System.Windows.Forms.Label();
+        label13.Text = "Секретное число итераций для В (k):"; 
+        label13.Location = new Point(530, 230); 
+        label13.AutoSize = true; 
+        label13.Font = new Font("Calibri", 12);   
+
+        textBox2 = new TextBox();
+        textBox2.Location = new Point(860, 230);
+        textBox2.KeyPress += textBox1_KeyPress;      
+
+        label10 = new System.Windows.Forms.Label();
+        label10.Text = "Введите целое число (m - сообщение):"; 
+        label10.Location = new Point(530, 290); 
+        label10.AutoSize = true; 
+        label10.Font = new Font("Calibri", 12); 
+
+        textBox1 = new TextBox();
+        textBox1.Location = new Point(880, 290);
+        textBox1.KeyPress += textBox1_KeyPress;
+
+        Button1 = new Button();
+        // Set the location of the button
+        Button1.Location = new Point(530, 350);
+        Button1.Text = "Сгенерировать подпись";
+        Button1.AutoSize = true;
+        Button1.BackColor = Color.LightBlue;
+        Button1.Padding = new Padding(6);
+        Button1.Click += button1_Click;
+
+        label14 = new System.Windows.Forms.Label();
+        label14.Text = "Подпись:"; 
+        label14.Location = new Point(530, 410); 
+        label14.AutoSize = true; 
+        label14.Font = new Font("Calibri", 12);         
+
+        label15 = new System.Windows.Forms.Label();
+        //label15.Text = "Подпись"; 
+        label15.Location = new Point(590, 410); 
+        label15.AutoSize = true; 
+        label15.Font = new Font("Calibri", 12);        
+
+        label16 = new System.Windows.Forms.Label();
+        label16.Location = new Point(530, 440); 
+        label16.AutoSize = true; 
+        label16.Font = new Font("Calibri", 12);       
+
+        Button2 = new Button();
+        Button2.Location = new Point(530, 520);
+        Button2.Text = "Начать заново";
+        Button2.AutoSize = true;
+        Button2.BackColor = Color.LightBlue;
+        Button2.Padding = new Padding(6);
+        Button2.Click += button2_Click;
         
         Graphics g = Graphics.FromImage(pictureBox1.Image);
         // Adding this control to the form 
@@ -99,6 +173,19 @@ partial class Form1
         this.Controls.Add(label7); 
         this.Controls.Add(label8); 
         this.Controls.Add(label9); 
+        this.Controls.Add(label10); 
+        this.Controls.Add(label11); 
+        this.Controls.Add(label12); 
+        this.Controls.Add(label13); 
+        this.Controls.Add(label14); 
+        this.Controls.Add(label15); 
+        this.Controls.Add(label16); 
+        this.Controls.Add(textBox1);
+        this.Controls.Add(textBox2);
+        this.Controls.Add(textBox3);
+        this.Controls.Add(textBox4);        
+        this.Controls.Add(Button1);  
+        this.Controls.Add(Button2);          
         this.Controls.Add(pictureBox1); 
         //this.MouseClick += Control1_MouseClick;
         pictureBox1.MouseClick += Control1_MouseClick;
@@ -115,6 +202,26 @@ partial class Form1
     private System.Windows.Forms.Label label7;
     private System.Windows.Forms.Label label8;
     private System.Windows.Forms.Label label9;
+    private System.Windows.Forms.Label label10;
+    private System.Windows.Forms.Label label11;
+    private System.Windows.Forms.Label label12;
+    private System.Windows.Forms.Label label13;
+    private System.Windows.Forms.Label label14;
+    private System.Windows.Forms.Label label15;
+    private System.Windows.Forms.Label label16;
+    private System.Windows.Forms.TextBox textBox1;
+    private System.Windows.Forms.TextBox textBox2;
+    private System.Windows.Forms.TextBox textBox3;
+    private System.Windows.Forms.TextBox textBox4;
     private static PictureBox pictureBox1;
+    private static Button Button1;
+    private static Button Button2;
+    private Complex C;
+    private Complex e;
+    private Complex d;
+    private int m;
+    private int x;
+    private int n;
+    private int k;
     //private static Graphics g;
 }
