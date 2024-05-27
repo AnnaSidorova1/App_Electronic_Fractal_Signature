@@ -226,5 +226,5 @@ partial class Form1
     private int n;
     private int k;
     private int[,] array2 = new int[3, 2];
-    //private static Graphics g;
+    static int[,] Mandelbrot = new int[500, 500];
 }
