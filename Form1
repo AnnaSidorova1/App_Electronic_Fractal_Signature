@@ -27,7 +27,7 @@ public partial class Form1 : Form
 	    Complex C = new Complex( 0.0, -0.0);
         int cnt_i = 0;
         int cnt_j = 0;
-        int[,] Mandelbrot = new int[max_points, max_points];
+
 
         for (double i = minr; i < maxr ; i+=((double)(maxr-minr)/max_points))
 	    {
@@ -38,28 +38,19 @@ public partial class Form1 : Form
                 double m = (double)(maxr-minr)/max_points;
                 Complex tmp = new Complex(i, j);
                 Z = 0;
-                //Z = (i, j);
                 C = tmp;
-			    int iteration = 0;
-                //int v = 0;
-                //int w = 0;
-			    for (int k = 1; k < 300; k++)
-			    {
-				    Z = (Z * Z) + C;
-				    if (Complex.Abs(Z) > 2.0)
-				    {
-                        double T = Complex.Abs(Z);
-					    iteration = k;
-                        //img.SetPixel(i+(img.Width/2), j + (img.Height/2), Color.Red);
-                        //v = (int)i+(Math.Abs(maxr-minr));
-                        //w = (int)j+(Math.Abs(maxi-mini));
-                        Mandelbrot[cnt_i, cnt_j] = 1;
-					    break;
-				    }
-			    }
-                //img.SetPixel(i+(img.Width/2), j + (img.Height/2), Color.Red);
-			    //DrawComplexPoint(g, ((int)i) + (iWidth/2), ((int)j) + (iHeight/2), iteration);
-                //DrawComplexPoint(g, ((int)i) + (img.Width/2), ((int)j) + (img.Height/2), iteration);
+		int iteration = 0;
+		for (int k = 1; k < 300; k++)
+		{
+			Z = (Z * Z) + C;
+			if (Complex.Abs(Z) > 2.0)
+			{
+                        	double T = Complex.Abs(Z);
+				iteration = k;
+                        	Mandelbrot[cnt_i, cnt_j] = 1;
+				break;
+			}
+		}
                 cnt_j++;
             }
             cnt_i++;
@@ -89,74 +80,63 @@ public partial class Form1 : Form
     }        
     private void Control1_MouseClick(Object sender, MouseEventArgs ev) 
     {
-        
-        System.Text.StringBuilder messageBoxCS = new System.Text.StringBuilder();
-        messageBoxCS.AppendFormat("{0} = {1}", "Button", ev.Button );
-        messageBoxCS.AppendLine();
-        messageBoxCS.AppendFormat("{0} = {1}", "Clicks", ev.Clicks );
-        messageBoxCS.AppendLine();
-        messageBoxCS.AppendFormat("{0} = {1}", "X", ev.X );
-        messageBoxCS.AppendLine();
-        messageBoxCS.AppendFormat("{0} = {1}", "Y", ev.Y );
-        messageBoxCS.AppendLine();
-        messageBoxCS.AppendFormat("{0} = {1}", "Delta", ev.Delta );
-        messageBoxCS.AppendLine();
-        messageBoxCS.AppendFormat("{0} = {1}", "Location", ev.Location );
-        messageBoxCS.AppendLine();
-        //MessageBox.Show(messageBoxCS.ToString(), "MouseClick Event" );
-        System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
-        Bitmap img = new Bitmap(500, 500);
+        if (Mandelbrot[ev.X, ev.Y] == 1) 
+            MessageBox.Show("Нужны точки из множества Мандельброта!" );
+        else {
+            System.Text.StringBuilder messageBoxCS = new System.Text.StringBuilder();
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+            Bitmap img = new Bitmap(500, 500);
 
-        if (label7.Text == "")
-        {
-            double text = (double)(ev.X-375)/(double)250;
-            double text2 = -((double)(ev.Y-250)/(double)250);
-            if (text2 >= 0)
-                label7.Text = text + " + " + text2 + "i";
-            else
-                label7.Text = text + " " + text2 + "i";
-            C = new Complex(text, text2);
+            if (label7.Text == "")
+            {
+                double text = (double)(ev.X-375)/(double)250;
+                double text2 = -((double)(ev.Y-250)/(double)250);
+                if (text2 >= 0)
+                    label7.Text = text + " + " + text2 + "i";
+                else
+                    label7.Text = text + " " + text2 + "i";
+                C = new Complex(text, text2);
 
-            var pic = (PictureBox)sender;
-            var g = pic.CreateGraphics();
-            Pen pengraph = new Pen(Color.Red, 0.75F);
-            g.DrawRectangle(pengraph, ev.X, ev.Y, 2, 2);
-            array2[0,0] = ev.X;
-            array2[0,1] = ev.Y;
-            
-        }
-        else if (label8.Text == "")
-        {
-            double text = (double)(ev.X-375)/(double)250;
-            double text2 = -((double)(ev.Y-250)/(double)250);
-            if (text2 >= 0)
-                label8.Text = text + " + " + text2 + "i";
-            else
-                label8.Text = text + " " + text2 + "i";
-            e = new Complex(text, text2);
-            var pic = (PictureBox)sender;
-            var g = pic.CreateGraphics();
-            Pen pengraph = new Pen(Color.Red, 0.75F);
-            g.DrawRectangle(pengraph, ev.X, ev.Y, 2, 2);
-            array2[1,0] = ev.X;
-            array2[1,1] = ev.Y;
-        }
-        else if (label9.Text == "")
-        {
-            double text = (double)(ev.X-375)/(double)250;
-            double text2 = -((double)(ev.Y-250)/(double)250);
-            label9.Text = text + " + " + text2 + "i";
-            if (text2 >= 0)
+                var pic = (PictureBox)sender;
+                var g = pic.CreateGraphics();
+                Pen pengraph = new Pen(Color.Red, 0.75F);
+                g.DrawRectangle(pengraph, ev.X, ev.Y, 2, 2);
+                array2[0,0] = ev.X;
+                array2[0,1] = ev.Y;  
+            }
+            else if (label8.Text == "")
+            {
+                double text = (double)(ev.X-375)/(double)250;
+                double text2 = -((double)(ev.Y-250)/(double)250);
+                if (text2 >= 0)
+                    label8.Text = text + " + " + text2 + "i";
+                else
+                    label8.Text = text + " " + text2 + "i";
+                e = new Complex(text, text2);
+                var pic = (PictureBox)sender;
+                var g = pic.CreateGraphics();
+                Pen pengraph = new Pen(Color.Red, 0.75F);
+                g.DrawRectangle(pengraph, ev.X, ev.Y, 2, 2);
+                array2[1,0] = ev.X;
+                array2[1,1] = ev.Y;
+            }
+            else if (label9.Text == "")
+            {
+                double text = (double)(ev.X-375)/(double)250;
+                double text2 = -((double)(ev.Y-250)/(double)250);
                 label9.Text = text + " + " + text2 + "i";
-            else
-                label9.Text = text + " " + text2 + "i";        
-            d = new Complex(text, text2);
-            var pic = (PictureBox)sender;
-            var g = pic.CreateGraphics();
-            Pen pengraph = new Pen(Color.Red, 0.75F);
-            g.DrawRectangle(pengraph, ev.X, ev.Y, 2, 2);
-            array2[2,0] = ev.X;
-            array2[2,1] = ev.Y;
+                if (text2 >= 0)
+                    label9.Text = text + " + " + text2 + "i";
+                else
+                    label9.Text = text + " " + text2 + "i";        
+                d = new Complex(text, text2);
+                var pic = (PictureBox)sender;
+                var g = pic.CreateGraphics();
+                Pen pengraph = new Pen(Color.Red, 0.75F);
+                g.DrawRectangle(pengraph, ev.X, ev.Y, 2, 2);
+                array2[2,0] = ev.X;
+                array2[2,1] = ev.Y;
+            }   
         }
     }
     private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
@@ -244,5 +224,4 @@ public partial class Form1 : Form
         g.DrawRectangle(pengraph, array2[1,0], array2[1,1], 2, 2);
         g.DrawRectangle(pengraph, array2[2,0], array2[2,1], 2, 2);
     }  
-
 }
